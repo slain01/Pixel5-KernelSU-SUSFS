@@ -213,33 +213,6 @@ jobs:
           echo "Building the kernel..."
           BUILD_AOSP_KERNEL=1 ./build_redbull-gki.sh
 
-      - name: Create Bootimgs Folder and Copy Images
-        run: |
-          echo "Changing to configuration directory: $CONFIG..."
-          cd "$CONFIG"
-          
-          echo "Copying Image"
-          cp -r ./out/android-msm-pixel-4.19/dist/Image.lz4 ../AnyKernel3/Image
-          
-          
-      - name: Create ZIP Files for Different Formats
-        run: |
-          echo "Creating zip files for all formats..."
-          cd ./AnyKernel3
-          
-          ZIP_NAME="PIXEL-5-A14-KernelSU-SUSFS.zip"
-          echo "Creating zip file $ZIP_NAME..."
-          zip -r "../$ZIP_NAME" ./*
-
-          
-      - name: AnyKernel3.zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: AnyKernel3
-          path: |
-            *.zip
-            
-
       - name: boot.img
         uses: actions/upload-artifact@v4
         with:
