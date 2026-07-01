@@ -65,18 +65,7 @@ jobs:
           sudo timedatectl set-ntp true
           sudo timedatectl status
 
-      - name: Clone AnyKernel3 and Other Dependencies
-        run: |
-          echo "Cloning AnyKernel3 and other dependencies..."
-    
-          # Define the branch names using the matrix values
-          ANYKERNEL_BRANCH="android-4.19"
 
-          # Debug print the branches
-          echo "Using branch for AnyKernel3: $ANYKERNEL_BRANCH"
-
-          # Clone repositories using the branch names
-          git clone https://github.com/WildPlusKernel/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
 
       - name: 🔍 Locate ramdisk
         id: locate_ramdisk
@@ -171,31 +160,6 @@ jobs:
           echo "Building the kernel..."
           BUILD_AOSP_KERNEL=1 ./build_redbull-gki.sh
 
-      - name: Create Bootimgs Folder and Copy Images
-        run: |
-          echo "Changing to configuration directory: $CONFIG..."
-          cd "$CONFIG"
-
-          echo "Copying Image"
-          cp -r ./out/android-msm-pixel-4.19/dist/Image.lz4 ../AnyKernel3/Image
-          
-          
-      - name: Create ZIP Files for Different Formats
-        run: |
-          echo "Creating zip files for all formats..."
-          cd ./AnyKernel3
-          
-          ZIP_NAME="PIXEL-5-A14-KernelSU-SUSFS.zip"
-          echo "Creating zip file $ZIP_NAME..."
-          zip -r "../$ZIP_NAME" ./*
-
-          
-      - name: AnyKernel3.zip
-        uses: actions/upload-artifact@v4
-        with:
-          name: AnyKernel3
-          path: |
-            *.zip
             
 
       - name: boot.img
