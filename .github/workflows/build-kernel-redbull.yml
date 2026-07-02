@@ -123,9 +123,8 @@ jobs:
           fi
           
           echo "Adding KernelSU..."
-          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s v0.9.5
-          #cd ./KernelSU/kernel
-          #sed -i 's/ccflags-y += -DKSU_VERSION=16/ccflags-y += -DKSU_VERSION=12321/' ./Makefile
+          curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
+
 
       - name: Apply SUSFS Patches
         run: |
@@ -198,7 +197,7 @@ jobs:
           sed -i 's/check_defconfig//' ./build.config.redbull
           sed -i 's/check_defconfig && //' ./build.config.redbull.no-cfi
 
-          sed -i '$s|echo "\$res"|echo "\-g7b0944645172-NekomiyaMidori-SSR"|' ./scripts/setlocalversion
+          sed -i '$s|echo "\$res"|echo "\-g7b0944645172-ab10812814"|' ./scripts/setlocalversion
           sed -i 's/-stable//' ./scripts/setlocalversion
           
           # Run perl command to modify UTS_VERSION
